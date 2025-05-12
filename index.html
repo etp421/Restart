@@ -1,43 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>System Corrupted</title>
   <style>
     body {
       margin: 0;
-      background: black;
-      color: #FF0000;
-      font-family: 'Courier New', monospace;
+      background-color: black;
+      color: red;
+      font-family: monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      overflow: hidden;
+      text-align: center;
     }
-
-    .line {
-      opacity: 0;
-      animation: appear 1s forwards;
-    }
-
-    @keyframes appear {
-      to { opacity: 1; }
-    }
-
-    .line:nth-child(1) { animation-delay: 0.5s; }
-    .line:nth-child(2) { animation-delay: 1.5s; }
-    .line:nth-child(3) { animation-delay: 2.5s; }
-    .line:nth-child(4) { animation-delay: 3.5s; }
-
     .glitch {
-      position: relative;
       font-size: 24px;
-      text-shadow: 1px 1px 0 #0f0, -1px -1px 0 #f00;
-      animation: glitch 1.5s infinite;
+      animation: glitch 1s infinite;
     }
-
     @keyframes glitch {
       0% { transform: translate(0); }
       10% { transform: translate(-2px, -2px); }
@@ -45,77 +27,35 @@
       30% { transform: translate(-2px, 2px); }
       40% { transform: translate(2px, -2px); }
       50% { transform: translate(0); }
-      100% { transform: translate(0); }
     }
-
-    .error {
-      color: red;
-      font-size: 32px;
-      margin-top: 30px;
-      animation: pulse 1s infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { transform: scale(1); }
-      to { transform: scale(1.1); }
-    }
-
-    .shaking {
-      animation: shake 0.8s infinite;
-    }
-
-    @keyframes shake {
-      0% { transform: translate(1px, 1px) rotate(0deg); }
-      10% { transform: translate(-1px, -2px) rotate(-1deg); }
-      20% { transform: translate(-3px, 0px) rotate(1deg); }
-      30% { transform: translate(3px, 2px) rotate(0deg); }
-      40% { transform: translate(1px, -1px) rotate(1deg); }
-      50% { transform: translate(-1px, 2px) rotate(-1deg); }
-      60% { transform: translate(-3px, 1px) rotate(0deg); }
-      70% { transform: translate(3px, 1px) rotate(-1deg); }
-      80% { transform: translate(-1px, -1px) rotate(1deg); }
-      90% { transform: translate(1px, 2px) rotate(0deg); }
-      100% { transform: translate(1px, -2px) rotate(-1deg); }
-    }
-
-    .hidden {
-      display: none;
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-family: monospace;
     }
   </style>
 </head>
-<body class="shaking">
+<body>
 
-  <div class="line glitch">💀 System Failure Detected...</div>
-  <div class="line glitch">Error Code: 0x000006BA</div>
-  <div class="line glitch">Connection to server lost.</div>
-  <div class="line glitch">Rebooting in <span id="countdown">5</span>...</div>
+  <div class="glitch">☠️ System Failure Detected ☠️</div>
+  <button onclick="playSound()">Start Horror Sound</button>
 
-  <div class="error glitch">⚠️ CRITICAL SYSTEM ERROR ⚠️</div>
-
-  <!-- Audio seram -->
   <audio id="scarySound" src="https://cdn.pixabay.com/audio/2021/12/31/audio_2c7a6d8e5b.mp3 "></audio>
 
   <script>
-    let countdown = 5;
-    const countdownEl = document.getElementById("countdown");
-
-    const countdownInterval = setInterval(() => {
-      countdown--;
-      countdownEl.textContent = countdown;
-      if (countdown <= 0) {
-        clearInterval(countdownInterval);
-        countdownEl.textContent = "ERROR";
-        document.body.classList.add('shaking');
-
-        // Mainkan suara menyeramkan
-        const audio = document.getElementById("scarySound");
-        audio.play().catch(e => console.log("Autoplay diblokir oleh browser"));
-
-        // Tambahkan efek tambahan
-        document.querySelector('.error').textContent = "☠️ YOUR DEVICE IS INFECTED ☠️";
-      }
-    }, 1000);
+    function playSound() {
+      const audio = document.getElementById("scarySound");
+      audio.play().catch(e => {
+        alert("Gagal memainkan suara. Coba klik lagi.");
+        console.error(e);
+      });
+    }
   </script>
 
 </body>
 </html>
+      
